@@ -1,0 +1,41 @@
+.Home{
+    h1{
+        font-size: 100px;
+        position: absolute;
+        @extend %mid;
+        white-space: nowrap;
+        transform: translate(-50%,-50%) scale(0);
+        opacity: 0;
+
+        transform-origin: center;
+
+        transition: all ease 2s;
+
+        &.active{
+            opacity: 1;
+            transform: translate(-50%,-50%) scale(1);
+        }
+
+        span{
+            font-family: 'titillium semibold';
+            transition: color ease .2s,opacity ease 1s;
+            position: relative;
+
+            &.active{
+                opacity: 0;
+            }
+        }
+
+    }
+    &>p{
+        @extend %mid;
+        top: 60%;
+        font-family: 'titillium semibold';
+        font-size: 25px;
+        opacity: 0;
+
+        &.active{
+            animation: blink infinite 1.5s;
+        }
+    }
+}

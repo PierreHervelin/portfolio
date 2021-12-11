@@ -1,0 +1,92 @@
+// ---- fonts :
+
+@font-face {
+    font-family: 'titillium extralight';
+    src: url('../assets/fonts/TitilliumWeb-ExtraLight.ttf');
+}
+@font-face {
+    font-family: 'titillium light';
+    src: url('../assets/fonts/TitilliumWeb-Light.ttf');
+}
+@font-face {
+    font-family: 'titillium regular';
+    src: url('../assets/fonts/TitilliumWeb-Regular.ttf');
+}
+@font-face {
+    font-family: 'titillium semibold';
+    src: url('../assets/fonts/TitilliumWeb-SemiBold.ttf');
+}
+@font-face {
+    font-family: 'titillium bold';
+    src: url('../assets/fonts/TitilliumWeb-Bold.ttf');
+}
+@font-face {
+    font-family: 'titillium black';
+    src: url('../assets/fonts/TitilliumWeb-Black.ttf');
+}
+
+
+// ---- variables :
+
+
+// ---- general :
+
+*, *::after, *::before{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'titillium regular';
+    color: white;
+}
+
+body{
+    min-width: 100vw;
+    min-height: 100vh;
+    background: black;
+    overflow: hidden;
+}
+
+h1{
+    letter-spacing: 8px;
+    text-transform: uppercase;
+    font-weight: normal;
+    font-family: 'titillium bold';
+    font-size: 30px;
+}
+
+%col{
+    display: flex;
+    flex-direction: column;
+}
+
+%row{
+    display: flex;
+    flex-direction: row;
+}
+
+%mid{
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-50%,-50%);
+}
+
+%cover{
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+
+// animations :
+
+@keyframes blink {
+    0%{
+        opacity: 0;
+    }
+    50%{
+        opacity: 1;
+    }
+    100%{
+        opacity: 0;
+    }
+}
