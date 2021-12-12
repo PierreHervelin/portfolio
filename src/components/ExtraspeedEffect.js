@@ -39,6 +39,7 @@ const ExtraspeedEffect = (props) => {
             }, 500)
         )
         setIntervals([...intervals])
+        props.arrived()
     }
 
     useEffect(() => {

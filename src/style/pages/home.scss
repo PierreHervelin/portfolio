@@ -86,7 +86,19 @@
 
         pointer-events: none;
 
+        transition: opacity ease .5s .5s;
+
         @extend %mid;
+
+        &.in-move{
+            opacity: 0;
+
+            transition: opacity ease .5s;
+
+            span{
+                pointer-events: none;
+            }
+        }
 
         span{
             color: white;
@@ -98,10 +110,6 @@
             opacity: 0.2;
 
             transition: opacity ease .5s;
-
-            &.in-move{
-                opacity: 0;
-            }
 
             &:first-child{
                 transform: rotate(180deg);

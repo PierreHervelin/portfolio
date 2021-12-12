@@ -13,6 +13,7 @@ const Home = () => {
     const [activeHelp,setActiveHelp]=useState(false)
     const [helpContent,setHelpContent]=useState(null)
     const [page,setPage]=useState(0)
+    const [inMove,setInMove]=useState(true)
     
     const ref=useRef({})
 
@@ -21,6 +22,7 @@ const Home = () => {
     }
 
     const rightPage=()=>{
+        setInMove(true)
         direction='right'
         if(page>=4){
             setPage(0)
@@ -30,12 +32,17 @@ const Home = () => {
     }
 
     const leftPage=()=>{
+        setInMove(true)
         direction='left'
         if(page<=0){
             setPage(4)
         }else{
             setPage(page-1)
         }
+    }
+
+    const arrivedOnPage=()=>{
+        setInMove(false)
     }
 
     useEffect(()=>{
@@ -54,13 +61,19 @@ const Home = () => {
                 setMessageBottom(
                     <TextAppear text='Somewhere, lost in space' index={1} duration={12} class='message-bottom'/>
                 )
+                setInMove(false)
             }, 1000);
         }
     },[isStarted])
 
     return (
         <main className='Home'>
-            <ExtraspeedEffect stop={start} page={page} direction={direction}/>
+            <ExtraspeedEffect 
+                stop={start} 
+                arrived={arrivedOnPage} 
+                page={page} 
+                direction={direction}
+            />
             <p 
                 className={`${isStarted?'':'active'}`}
             >press any key</p>
@@ -73,7 +86,7 @@ const Home = () => {
                 <BorderProgressEffect active={activeHelp}/>
                 {helpContent}
             </div>
-            <div className='arrow-container'>
+            <div className={`arrow-container ${inMove?'in-move':''}`}>
                 <span 
                     className='material-icons' 
                     onClick={leftPage}

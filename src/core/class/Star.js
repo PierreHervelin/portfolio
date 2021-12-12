@@ -68,14 +68,14 @@ export class Star {
                 this.x += this.speed
                 this.y -= this.speed * this.step
                 if (this.luminosity < this.luminosityMax) {
-                    this.luminosity+=5
+                    this.luminosity+=10
                 }
                 break
             case 'right':
                 this.x -= this.speed
                 this.y -= this.speed * this.step
                 if (this.luminosity < this.luminosityMax) {
-                    this.luminosity+=5
+                    this.luminosity+=10
                 }
                 break
             default:
