@@ -1,7 +1,18 @@
 import { getRandomInt } from "../utils"
 
 export class speedParticle {
-    constructor(canvas,direction){
+    constructor(canvas,config={direction:'left',speed:30,size:[1,3]}){
+        //config :
+
+        if(!config.size){
+            config.size=[1,3]
+        }
+        if(!config.speed){
+            config.speed=30
+        }
+
+        this.canvas=canvas
+
         const width=canvas.width
         const height=canvas.height
 
@@ -11,20 +22,21 @@ export class speedParticle {
         this.x=centerX
         this.y=centerY
 
-        if(['bottom','top'].includes(direction)){
+        if(['bottom','top'].includes(config.direction)){
             this.direction=[
-                direction,
+                config.direction,
                 getRandomInt(0,1)?'left':'right'
             ]
         }else{
             this.direction=[
-                direction,
+                config.direction,
                 getRandomInt(0,1)?'top':'bottom'
             ]
         }
-        this.step=getRandomInt(0,20)
-        this.lifeTime=80
-        this.size=getRandomInt(1,5)
+        this.step=getRandomInt(0,30)
+        this.lifeTime=0
+        this.size=getRandomInt(config.size[0],config.size[1])
+        this.speed=config.speed
         this.dead=false
     }
 
@@ -36,7 +48,7 @@ export class speedParticle {
                 }else{
                     this.x+=this.step
                 }
-                this.y-=30
+                this.y-=this.speed
                 break
             case 'bottom':
                 if(this.direction[1]==='left'){
@@ -44,7 +56,7 @@ export class speedParticle {
                 }else{
                     this.x+=this.step
                 }
-                this.y+=30
+                this.y+=this.speed
                 break
             case 'left':
                 if(this.direction[1]==='top'){
@@ -52,7 +64,7 @@ export class speedParticle {
                 }else{
                     this.y+=this.step
                 }
-                this.x-=30
+                this.x-=this.speed
                 break
             case 'right':
                 if(this.direction[1]==='top'){
@@ -60,15 +72,31 @@ export class speedParticle {
                 }else{
                     this.y+=this.step
                 }
-                this.x+=30
+                this.x+=this.speed
                 break
             default:
                 break
         }
-        this.size++
-        this.lifeTime--
+        if(this.speed<15){
+            this.lifeTime+=0.1
+        }else if(this.speed<20){
+            this.lifeTime+=0.2
+        }else if(this.speed<30){
+            this.lifeTime++
+        }else{
+            this.lifeTime+=2
+        }
 
-        if(this.lifeTime===0){
+        if(this.lifeTime%4===0){
+            this.size++
+        }
+
+        if(
+            this.x>this.canvas.width ||
+            this.x<0 ||
+            this.y>this.canvas.height ||
+            this.y<0
+        ){
             this.dead=true
         }
     }

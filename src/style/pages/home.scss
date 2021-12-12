@@ -1,41 +1,115 @@
 .Home{
-    h1{
-        font-size: 100px;
+    .Profile{
+        @extend %col;
+        justify-content: flex-start;
+        align-items: flex-start;
+
         position: absolute;
-        @extend %mid;
-        white-space: nowrap;
-        transform: translate(-50%,-50%) scale(0);
-        opacity: 0;
-
-        transform-origin: center;
-
-        transition: all ease 2s;
-
-        &.active{
-            opacity: 1;
-            transform: translate(-50%,-50%) scale(1);
-        }
+        top: 60px;
+        left: 20px;
 
         span{
-            font-family: 'titillium semibold';
-            transition: color ease .2s,opacity ease 1s;
+            font-size: 20px;
+            font-family: 'orbitron semibold';
             position: relative;
+        }
+    }
+    &>p{
+        font-size: 20px;
+        opacity: 0;
 
-            &.active{
-                opacity: 0;
+        position: absolute;
+        bottom: 50px;
+        left: 50%;
+        transform: translate(-50%);
+
+        &.active{
+            animation: blink ease 2s infinite;
+        }
+    }
+
+    .helpicon{
+        position: absolute;
+        top: 20px;
+        left: 20px;
+
+        font-size: 35px;
+
+        color: white;
+        opacity: 0;
+        cursor: pointer;
+
+        transition: color ease .5s;
+
+        &:hover{
+            &.started{
+                opacity: 1;
+                animation: none;
             }
         }
 
-    }
-    &>p{
-        @extend %mid;
-        top: 60%;
-        font-family: 'titillium semibold';
-        font-size: 25px;
-        opacity: 0;
+        &.started{
+            animation: blink ease 2s infinite;
+        }
 
         &.active{
-            animation: blink infinite 1.5s;
+            opacity: 0;
+            transition: opacity ease .5s;
+            animation: none;
+            pointer-events: none;
+        }
+    }
+
+    .message-bottom{
+        @extend %row;
+        justify-content: flex-start;
+        align-items: baseline;
+
+        position: absolute;
+        bottom: 50px;
+        left: 20px;
+
+        span{
+            color: white;
+            font-size: 20px;
+            margin-inline: 5px;
+        }
+    }
+
+    .arrow-container{
+        @extend %row;
+        justify-content: space-between;
+        align-items: center;
+
+        width: 95%;
+        height: 100%;
+
+        pointer-events: none;
+
+        @extend %mid;
+
+        span{
+            color: white;
+            font-size: 35px;
+            cursor: pointer;
+
+            pointer-events: auto;
+
+            opacity: 0.2;
+
+            transition: opacity ease .5s;
+
+            &.in-move{
+                opacity: 0;
+            }
+
+            &:first-child{
+                transform: rotate(180deg);
+            }
+
+            &:hover{
+                opacity: 1;
+            }
         }
     }
 }

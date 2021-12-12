@@ -1,56 +1,89 @@
 import React, { useEffect, useRef, useState } from 'react';
+import BlackBottom from '../components/BlackBottom';
+import BorderProgressEffect from '../components/BorderProgressEffect';
 import ExtraspeedEffect from '../components/ExtraspeedEffect';
-import { asyncTimeout } from '../core/utils';
+import Profile from '../components/Profile';
+import TextAppear from '../components/TextAppear';
+
+let direction=null
 
 const Home = () => {
-    const [start,setStart]=useState(false)
-    const [h1Content,setH1Content]=useState([])
+    const [isStarted,setIsStarted]=useState(false)
+    const [messageBottom,setMessageBottom]=useState('')
+    const [activeHelp,setActiveHelp]=useState(false)
+    const [helpContent,setHelpContent]=useState(null)
+    const [page,setPage]=useState(0)
+    
     const ref=useRef({})
 
-    const startAnim=()=>{
-        ref.current.h1.classList.add('active')
-        setTimeout(() => {
-            setStart(true)
-        }, 3000);
+    const start=()=>{
+        setIsStarted(true)
     }
 
-    const disappearH1=async()=>{
-        const children=ref.current.h1.children
+    const rightPage=()=>{
+        direction='right'
+        if(page>=4){
+            setPage(0)
+        }else{
+            setPage(page+1)
+        }
+    }
 
-        console.log(children);
-
-        for(let i in children){
-            if(parseInt(i+1)){
-                await asyncTimeout(200)
-                children[i].classList.add('active')
-            }
+    const leftPage=()=>{
+        direction='left'
+        if(page<=0){
+            setPage(4)
+        }else{
+            setPage(page-1)
         }
     }
 
     useEffect(()=>{
-        if(start){
-            ref.current.presskey.classList.add('active')
-            window.onkeydown=()=>{
-                ref.current.presskey.classList.remove('active')
-                disappearH1()
+        if(activeHelp){
+            if(!helpContent){
+                setHelpContent(
+                    <Profile/>
+                )
             }
         }
-    },[start])
+    },[activeHelp])
 
     useEffect(()=>{
-        const string='PIERRE HERVELIN'
-        setH1Content(string.split(''))
-    },[])
+        if(isStarted){
+            setTimeout(() => {
+                setMessageBottom(
+                    <TextAppear text='Somewhere, lost in space' index={1} duration={12} class='message-bottom'/>
+                )
+            }, 1000);
+        }
+    },[isStarted])
 
     return (
         <main className='Home'>
-            <h1 ref={el=>ref.current.h1=el}>
-                {h1Content.map((item,i)=>
-                    <span key={i}>{item}</span>
-                )}
-            </h1>
-            <p ref={el=>ref.current.presskey=el}>press any key</p>
-            <ExtraspeedEffect method={startAnim}/>
+            <ExtraspeedEffect stop={start} page={page} direction={direction}/>
+            <p 
+                className={`${isStarted?'':'active'}`}
+            >press any key</p>
+            <span 
+                className={`material-icons helpicon ${isStarted?'started':''} ${activeHelp?'active':''}`}
+                onClick={()=>setActiveHelp(!activeHelp)}
+            >help_outline</span>
+            {messageBottom}
+            <div className='help-infos'>
+                <BorderProgressEffect active={activeHelp}/>
+                {helpContent}
+            </div>
+            <div className='arrow-container'>
+                <span 
+                    className='material-icons' 
+                    onClick={leftPage}
+                >double_arrow</span>
+                <span 
+                    className='material-icons'
+                    onClick={rightPage}
+                >double_arrow</span>
+            </div>
+            <BlackBottom/>
         </main>
     );
 };
