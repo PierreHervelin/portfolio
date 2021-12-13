@@ -4,6 +4,7 @@ import BorderProgressEffect from '../components/BorderProgressEffect';
 import ExtraspeedEffect from '../components/ExtraspeedEffect';
 import Profile from '../components/Profile';
 import TextAppear from '../components/TextAppear';
+import { LoopContainer } from '../core/main';
 
 let direction=null
 
@@ -44,6 +45,12 @@ const Home = () => {
     const arrivedOnPage=()=>{
         setInMove(false)
     }
+
+    useEffect(()=>{
+        setInterval(() => {
+            console.log(LoopContainer);
+        }, 1000);
+    },[])
 
     useEffect(()=>{
         if(activeHelp){

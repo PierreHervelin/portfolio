@@ -72,6 +72,10 @@ const ExtraspeedEffect = (props) => {
 
                 for (let i in LoopContainer.stars) {
                     let star = LoopContainer.stars[i]
+                    if (star.dead) {
+                        LoopContainer.stars.splice(i, 1)
+                        continue
+                    }
 
                     ctx.fillStyle = `rgba(255,255,255,${star.luminosity * 0.01})`
                     ctx.fillRect(
