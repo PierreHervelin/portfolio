@@ -1,7 +1,7 @@
 import { speedParticle } from "./class/SpeedParticle"
 import { Star } from "./class/Star"
 import { LoopContainer } from "./main"
-import { asyncTimeout, getRandomInt } from "./utils"
+import { getRandomInt } from "./utils"
 
 export const move = (canvas, direction) => {
     const config = {

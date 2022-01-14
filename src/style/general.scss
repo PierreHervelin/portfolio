@@ -37,13 +37,13 @@
     src: url('../assets/fonts/Orbitron-SemiBold.ttf');
 }
 
-
 // ---- variables :
-
 
 // ---- general :
 
-*, *::after, *::before{
+*,
+*::after,
+*::before {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
@@ -51,7 +51,7 @@
     color: white;
 }
 
-body{
+body {
     min-width: 100vw;
     min-height: 100vh;
     background: black;
@@ -59,14 +59,14 @@ body{
     position: relative;
 }
 
-h1{
+h1 {
     letter-spacing: 8px;
     text-transform: uppercase;
     font-weight: normal;
     font-size: 30px;
 }
 
-.blackbottom{
+.blackbottom {
     @extend %mid;
     background: black;
     width: 100%;
@@ -75,49 +75,53 @@ h1{
     pointer-events: none;
 }
 
-.title{
-    .space{
+.title {
+    .space {
         opacity: 0;
     }
 }
 
-.blink{
+.blink {
     animation: blink ease 2s infinite;
 }
 
-%col{
+%col {
     display: flex;
     flex-direction: column;
 }
 
-%row{
+%row {
     display: flex;
     flex-direction: row;
 }
 
-%mid{
+%mid {
     position: absolute;
-    top: 50%; left: 50%;
-    transform: translate(-50%,-50%);
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
 }
 
-%cover{
+%cover {
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
 }
 
+.spaceship {
+    @extend %mid;
+}
 
 // animations :
 
 @keyframes blink {
-    0%{
+    0% {
         opacity: 0;
     }
-    50%{
+    50% {
         opacity: 1;
     }
-    100%{
+    100% {
         opacity: 0;
     }
 }
